@@ -24,3 +24,15 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-wrapper input {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-blue-200);
+  padding: 10px;
+  color: var(--color-blue-800);
+}
