@@ -21,8 +21,6 @@ export default async function Home() {
     );
   }
 
-  console.log("CATEGORIES -->", operationCategories);
-
   if (!operationCategories) return null;
 
   return (

@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import { Operation, Category } from "@/types";
+import { Operation } from "@/types";
 
 export function getSheetsClient() {
   const auth = new google.auth.JWT({
