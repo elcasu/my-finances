@@ -1,23 +1,9 @@
-export const CATEGORIES = [
-  "Comida",
-  "Transporte",
-  "Servicios",
-  "Vivienda",
-  "Farmacia",
-  "Ocio",
-  "Salud",
-  "Educación",
-  "Impuestos",
-  "Emprendimientos",
-  "Mensualidad alimentos",
-  "Otros",
-] as const;
-
-export type OperationType = "Gasto" | "Ingreso";
+// TODO: Analyze if better typing makes sense here
+export type Category = string;
 
 export type Operation = {
   amount: number;
-  type: OperationType;
-  category: (typeof CATEGORIES)[number] | null;
+  type: string;
+  category: Category | null;
   notes: string;
 };

@@ -14,6 +14,7 @@ type SelectFieldProps<T extends FieldValues> = {
   required?: boolean;
   inputId: string;
   className?: string;
+  onChange?: (value: string) => void;
 };
 
 export default function SelectField<T extends FieldValues>({
@@ -24,6 +25,7 @@ export default function SelectField<T extends FieldValues>({
   required,
   inputId,
   className = "",
+  onChange,
 }: SelectFieldProps<T>) {
   return (
     <div className="input-wrapper">
@@ -41,7 +43,12 @@ export default function SelectField<T extends FieldValues>({
               isSearchable={false}
               className={className}
               value={options.find((opt) => opt.value === field.value) ?? null}
-              onChange={(opt) => field.onChange(opt?.value ?? null)}
+              onChange={(opt) => {
+                field.onChange(opt?.value ?? null);
+                if (opt?.value) {
+                  onChange?.(opt.value);
+                }
+              }}
             />
 
             {fieldState.error && (

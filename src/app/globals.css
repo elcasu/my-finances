@@ -33,6 +33,11 @@ body {
 .input-wrapper input {
   background-color: var(--color-white);
   border: 1px solid var(--color-blue-200);
+  border-radius: 8px;
   padding: 10px;
   color: var(--color-blue-800);
+}
+
+.input-wrapper label {
+  margin-bottom: 4px;
 }

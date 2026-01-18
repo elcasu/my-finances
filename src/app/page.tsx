@@ -1,8 +1,13 @@
 import { getServerSession } from "next-auth";
 import UserInputForm from "@/src/components/UserInputForm";
+import { getOperationCategories } from "../lib/sheets";
 
 export default async function Home() {
   const session = await getServerSession();
+  const operationCategories = (await getOperationCategories()) as Record<
+    string,
+    string[]
+  >;
   if (!session) {
     return (
       <form
@@ -16,14 +21,18 @@ export default async function Home() {
     );
   }
 
+  console.log("CATEGORIES -->", operationCategories);
+
+  if (!operationCategories) return null;
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-700">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-5 px-0">
         <h1 className="text-2xl border-b border-b-blue-300 w-full flex items-center justify-center pb-5">
-          Control de gastos
+          Mis Finanzas
         </h1>
         <div className="pt-6 w-full px-6">
-          <UserInputForm />
+          <UserInputForm categories={operationCategories} />
         </div>
       </main>
     </div>

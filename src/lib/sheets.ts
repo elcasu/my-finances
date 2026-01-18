@@ -1,5 +1,5 @@
 import { google } from "googleapis";
-import { Operation } from "@/types";
+import { Operation, Category } from "@/types";
 
 export function getSheetsClient() {
   const auth = new google.auth.JWT({
@@ -31,4 +31,25 @@ export async function addOperation(data: Operation) {
       values: [[timestamp, data.amount, data.type, data.category, data.notes]],
     },
   });
+}
+
+export async function getOperationCategories() {
+  const sheets = getSheetsClient();
+  const fieldsResult = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    range: "Categories!A1:C1",
+  });
+  const fields = fieldsResult.data.values?.[0] as unknown as string[];
+  if (!fields?.length) return;
+
+  const result = await sheets.spreadsheets.values.get({
+    spreadsheetId: process.env.GOOGLE_SHEET_ID,
+    range: "Categories!A2:C",
+    majorDimension: "COLUMNS",
+  });
+  return {
+    [fields[0]]: result?.data?.values?.[0],
+    [fields[1]]: result?.data?.values?.[1],
+    [fields[2]]: result?.data?.values?.[2],
+  };
 }
